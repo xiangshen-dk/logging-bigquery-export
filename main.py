@@ -47,7 +47,8 @@ def index():
         if all_rows_to_insert:
             row_ids = [x['insertId'] for x in all_rows_to_insert]
             # use row ids to avoid duplicates
-            errors = client.insert_rows_json(log_table, all_rows_to_insert, row_ids)
+            errors = client.insert_rows_json(
+                log_table, all_rows_to_insert, row_ids)
             if errors:
                 logging.error(
                     f"Encountered errors while inserting rows: {errors}")
@@ -68,7 +69,7 @@ def clean_up_keys(d):
 
 
 def get_error_data():
-    # add 5 seconds in case scheduler job is slight off
+    # add 5 seconds in case scheduler job is slightly off
     query = f'SELECT logEntry FROM {err_table} WHERE timestamp > TIMESTAMP_SUB(CURRENT_TIMESTAMP(),INTERVAL {frequency_in_min*60+5} SECOND)'
     query_job = client.query(query)
     return query_job.result()
