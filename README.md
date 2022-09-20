@@ -5,6 +5,16 @@ This repo provides a solution for the '[mismatches in schema](https://cloud.goog
 
 Make sure you have [configured the log sink](https://cloud.google.com/logging/docs/export/configure_export_v2) to BigQuery.
 
+For example:
+
+![log-sing](./img/log-sink.png)
+
+You can use the following log query as the inclusion filter since the log name `schwab-log` is used for testing in a later step.
+
+```
+logName="projects/[Your Project Id]/logs/schwab-log"
+```
+
 ### Enable services
 ```bash
 gcloud services enable run.googleapis.com \
